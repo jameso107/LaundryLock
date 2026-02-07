@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LaundryLock — Smart Laundry Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <main class="demo">
+    <header class="header">
+      <h1 class="logo">LaundryLock</h1>
+      <p class="tagline">Smart lock demo — your laundry, secured</p>
+    </header>
+
+    <section class="washer-section">
+      <div class="washer" data-state="empty">
+        <!-- Machine body -->
+        <div class="washer-body">
+          <div class="washer-top">
+            <div class="control-panel">
+              <div class="display">
+                <span class="status-text" id="statusText">Ready for laundry</span>
+                <div class="timer" id="timer" aria-hidden="true"></div>
+              </div>
+              <div class="lock-indicator" id="lockIndicator" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                <span>LOCKED</span>
+              </div>
+            </div>
+          </div>
+          <!-- Circular door / drum -->
+          <div class="door-frame">
+            <div class="door" id="washerDoor">
+              <div class="drum">
+                <div class="laundry-content" id="laundryContent">
+                  <div class="laundry-items">
+                    <span class="item">👕</span>
+                    <span class="item">👖</span>
+                    <span class="item">🧦</span>
+                    <span class="item">🩳</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="washer-base"></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btnAddLaundry" type="button">
+          Put laundry in machine
+        </button>
+        <button class="btn btn-secondary" id="btnScanQR" type="button" disabled>
+          Scan QR code
+        </button>
+        <button class="btn btn-secondary" id="btnUnload" type="button" disabled>
+          Unload laundry
+        </button>
+      </div>
+    </section>
+
+    <div class="state-hint" id="stateHint">
+      Tap "Put laundry in machine" to start the demo
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

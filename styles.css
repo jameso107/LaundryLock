@@ -1,0 +1,317 @@
+/* LaundryLock Demo — Industrial smart laundry aesthetic */
+:root {
+  --bg: #0f1419;
+  --bg-elevated: #1a2129;
+  --surface: #242d38;
+  --border: #3d4a58;
+  --text: #e8ecf0;
+  --text-muted: #8b9bab;
+  --accent: #00d4aa;
+  --accent-glow: rgba(0, 212, 170, 0.4);
+  --warning: #ffb347;
+  --danger: #ff6b6b;
+  --lock-glow: #ff4757;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.demo {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.logo {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  font-weight: 300;
+}
+
+/* Washer section */
+.washer-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Washer machine */
+.washer {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 2rem;
+}
+
+.washer-body {
+  background: linear-gradient(180deg, #2d3744 0%, #1e2630 30%, #161d26 100%);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+}
+
+.washer-top {
+  margin-bottom: 1.25rem;
+}
+
+.control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.display {
+  flex: 1;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+.timer.running {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.7; }
+}
+
+.lock-indicator {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+  border-radius: 8px;
+  color: var(--lock-glow);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.lock-indicator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.lock-indicator.visible {
+  display: flex;
+  animation: lockGlow 2s ease-in-out infinite;
+}
+
+@keyframes lockGlow {
+  50% { box-shadow: 0 0 12px var(--accent-glow); }
+}
+
+/* Door frame */
+.door-frame {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.door {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1a2129 0%, #0f1419 100%);
+  border: 4px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.washer[data-state="running"] .door,
+.washer[data-state="complete-locked"] .door {
+  border-color: var(--lock-glow);
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 71, 87, 0.3);
+}
+
+.drum {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #2a3340, #151a22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Laundry inside drum - hidden by default */
+.laundry-content {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.washer[data-state="full"] .laundry-content,
+.washer[data-state="running"] .laundry-content,
+.washer[data-state="complete-locked"] .laundry-content,
+.washer[data-state="ready-unload"] .laundry-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.washer[data-state="running"] .drum {
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.laundry-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+  max-width: 80px;
+}
+
+.laundry-items .item {
+  font-size: 1.25rem;
+}
+
+.washer-base {
+  height: 12px;
+  margin: 0 -0.5rem;
+  background: linear-gradient(180deg, #161d26, #0f1419);
+  border-radius: 0 0 12px 12px;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #00b894);
+  color: var(--bg);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* State hint */
+.state-hint {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  min-height: 1.5rem;
+}
