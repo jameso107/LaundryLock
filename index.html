@@ -3,72 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LaundryLock — Smart Laundry Demo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <title>ZCS Connect — Proof of Concept</title>
+  <meta name="description" content="Interactive proof of concept for ZCS Connect — one app for everything between Zeeland Christian School and home.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231b3a6b'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23f5b940' font-family='Arial' font-weight='bold'>Z</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="noise"></div>
-  <main class="demo">
-    <header class="header">
-      <h1 class="logo">LaundryLock</h1>
-      <p class="tagline">Smart lock demo — your laundry, secured</p>
-    </header>
 
-    <section class="washer-section">
-      <div class="washer" data-state="empty">
-        <!-- Machine body -->
-        <div class="washer-body">
-          <div class="washer-top">
-            <div class="control-panel">
-              <div class="display">
-                <span class="status-text" id="statusText">Ready for laundry</span>
-                <div class="timer" id="timer" aria-hidden="true"></div>
-              </div>
-              <div class="lock-indicator" id="lockIndicator" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                <span>LOCKED</span>
-              </div>
-            </div>
-          </div>
-          <!-- Circular door / drum -->
-          <div class="door-frame">
-            <div class="door" id="washerDoor">
-              <div class="drum">
-                <div class="laundry-content" id="laundryContent">
-                  <div class="laundry-items">
-                    <span class="item">👕</span>
-                    <span class="item">👖</span>
-                    <span class="item">🧦</span>
-                    <span class="item">🩳</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="washer-base"></div>
+  <div class="page">
+
+    <!-- ===== Left panel: POC context (desktop) ===== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <h1>ZCS Connect</h1>
+          <p class="tagline">One app for everything between ZCS and home.</p>
         </div>
       </div>
 
-      <div class="actions">
-        <button class="btn btn-primary" id="btnAddLaundry" type="button">
-          Put laundry in machine
+      <p class="poc-note"><strong>Proof of concept</strong> — an interactive mockup of the mobile app described in the ZCS Connect PRD (v0.1, July 2026). Everything runs in your browser with demo data; nothing is saved.</p>
+
+      <div class="role-switch" role="tablist" aria-label="Demo role">
+        <button class="role-btn active" data-role="parent" role="tab">
+          <span class="role-icon">👪</span>
+          <span class="role-label"><strong>Parent</strong><small>Sarah Meyer · 2 kids</small></span>
         </button>
-        <button class="btn btn-secondary" id="btnScanQR" type="button" disabled>
-          Scan QR code
+        <button class="role-btn" data-role="teacher" role="tab">
+          <span class="role-icon">🍎</span>
+          <span class="role-label"><strong>Teacher</strong><small>Mrs. VanderWall · 3rd Grade</small></span>
         </button>
-        <button class="btn btn-secondary" id="btnUnload" type="button" disabled>
-          Unload laundry
+        <button class="role-btn" data-role="admin" role="tab">
+          <span class="role-icon">🏫</span>
+          <span class="role-label"><strong>Admin</strong><small>ZCS Front Office</small></span>
         </button>
       </div>
-    </section>
 
-    <div class="state-hint" id="stateHint">
-      Tap "Put laundry in machine" to start the demo
-    </div>
-  </main>
-  <script src="script.js"></script>
+      <div class="try-list">
+        <h2>Try it</h2>
+        <ul>
+          <li><b>Parent:</b> join a classroom with code <code>ZCS-7RM4KX</code>, sign Ella's field-trip permission slip, claim a volunteer slot, message the teacher.</li>
+          <li><b>Teacher:</b> post an announcement, watch read counts, nudge unread families, check form completion.</li>
+          <li><b>Admin:</b> send a school-wide post or a ❄️ <b>priority alert</b> — then switch to Parent and see it land. Browse the DM audit log.</li>
+        </ul>
+      </div>
+
+      <div class="prd-facts">
+        <div class="fact"><b>~630</b><span>families</span></div>
+        <div class="fact"><b>~1,045</b><span>students PreK–8</span></div>
+        <div class="fact"><b>~55</b><span>classrooms</span></div>
+        <div class="fact"><b>Aug 25</b><span>target launch</span></div>
+      </div>
+
+      <p class="footnote">Prepared for Zeeland Christian School by Syzygy Services LLC · PRD v0.1 draft · Free for families. No ads, ever.</p>
+    </aside>
+
+    <!-- ===== Phone mockup ===== -->
+    <main class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="statusbar-icons">
+            <svg width="46" height="12" viewBox="0 0 46 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><rect x="24" y="1" width="18" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="26" y="3" width="12" height="6" rx="1.5"/><rect x="43" y="4" width="2" height="4" rx="1"/></svg>
+          </span>
+        </div>
+        <div class="app" id="app"><!-- rendered by app.js --></div>
+      </div>
+      <div class="phone-caption">Interactive demo · state resets on reload</div>
+    </main>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
